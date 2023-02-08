@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AluraChallenges.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AluraChallenges.Data;
 
@@ -8,4 +9,6 @@ public class AppDbContext : DbContext
 	{
 
 	}
+
+	public DbSet<Video> videos { get; set; }
 }
