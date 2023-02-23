@@ -31,4 +31,11 @@ public class VideoController : ControllerBase
         if(result.IsFailed) return NotFound();
         return Ok(result.Value);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> PostVideo(CreateVideoDto  createVideoDto)
+    {
+        Result<ReadVideoDto> result = await _videoService.PostVideo(createVideoDto);
+        return CreatedAtAction(nameof(GetVideoByIdAsync), new { id = result.Value.Id }, result.Value);
+    }
 }
