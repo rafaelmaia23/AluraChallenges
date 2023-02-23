@@ -76,3 +76,4 @@ D:\OneDrive\Estudo\Alura\Alura Challenge\Backend\AluraChallenges\AluraChallenges
 D:\OneDrive\Estudo\Alura\Alura Challenge\Backend\AluraChallenges\AluraChallenges\obj\Debug\net7.0\ref\AluraChallenges.dll
 D:\OneDrive\Estudo\Alura\Alura Challenge\Backend\AluraChallenges\AluraChallenges\bin\Debug\net7.0\AutoMapper.dll
 D:\OneDrive\Estudo\Alura\Alura Challenge\Backend\AluraChallenges\AluraChallenges\bin\Debug\net7.0\FluentResults.dll
+D:\OneDrive\Estudo\Alura\Alura Challenge\Backend\AluraChallenges\AluraChallenges\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

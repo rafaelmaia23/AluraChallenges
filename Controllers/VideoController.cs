@@ -25,6 +25,7 @@ public class VideoController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [ActionName("GetVideoByIdAsync")]
     public async Task<IActionResult> GetVideoByIdAsync(int id)
     {
         Result<ReadVideoDto> result = await _videoService.GetVideoByIdAsync(id);
