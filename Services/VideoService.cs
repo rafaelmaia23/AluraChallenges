@@ -1,21 +1,36 @@
 ﻿using AluraChallenges.Data;
 using AluraChallenges.Models;
+using AluraChallenges.Models.VideoDto;
 using AluraChallenges.Services.IService;
 using AutoMapper;
 using FluentResults;
+using Microsoft.EntityFrameworkCore;
 
 namespace AluraChallenges.Services;
 
 public class VideoService : IVideoService
 {
     private readonly AppDbContext _db;
-    private readonly IMapper mapper
-    public VideoService()
+    private readonly IMapper _mapper;
+    public VideoService(AppDbContext db, IMapper mapper)
     {
-
+        _db = db;
+        _mapper = mapper;
     }
-    public Task<Result<List<Video>>> GetVideosAsync()
+
+    public async Task<Result<ReadVideoDto>> GetVideoByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        Video? video = await _db.videos.FirstOrDefaultAsync(x => x.Id == id);
+        if (video == null) return Result.Fail("Not Found");
+        ReadVideoDto readVideoDto = _mapper.Map<ReadVideoDto>(video);
+        return Result.Ok(readVideoDto);
+    }
+
+    public async Task<Result<List<ReadVideoDto>>> GetVideosAsync(int skip, int take)
+    {
+        List<Video>? videos = await _db.videos.Skip(skip).Take(take).ToListAsync();
+        if (videos == null) return Result.Fail("Not Found: List of Videos is empty");
+        List<ReadVideoDto> readVideoDtos = _mapper.Map<List<ReadVideoDto>>(videos);
+        return Result.Ok(readVideoDtos);
     }
 }
