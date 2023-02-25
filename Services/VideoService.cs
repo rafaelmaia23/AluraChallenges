@@ -18,6 +18,15 @@ public class VideoService : IVideoService
         _mapper = mapper;
     }
 
+    public async Task<Result> DeleteVideo(int id)
+    {
+        Video? video = await _db.videos.FirstOrDefaultAsync(x => x.Id == id);
+        if (video == null) return Result.Fail("Not Found");
+        _db.videos.Remove(video);
+        await _db.SaveChangesAsync();
+        return Result.Ok();
+    }
+
     public async Task<Result<ReadVideoDto>> GetVideoByIdAsync(int id)
     {
         Video? video = await _db.videos.FirstOrDefaultAsync(x => x.Id == id);
