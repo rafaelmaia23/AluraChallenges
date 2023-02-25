@@ -40,5 +40,11 @@ public class VideoController : ControllerBase
         return CreatedAtAction(nameof(GetVideoByIdAsync), new { id = result.Value.Id }, result.Value);
     }
 
-
+    [HttpPut("{id}")]
+    public async Task<IActionResult> PutVideoAsync(int id, UpdateVideoDto updateVideoDto)
+    {
+        Result result = await _videoService.PutVideoAsync(id, updateVideoDto);
+        if(result.IsFailed) return NotFound();
+        return NoContent();
+    }
 }

@@ -42,4 +42,14 @@ public class VideoService : IVideoService
         ReadVideoDto readVideoDto = _mapper.Map<ReadVideoDto>(video);
         return Result.Ok(readVideoDto);
     }
+
+    public async Task<Result> PutVideoAsync(int id, UpdateVideoDto updateVideoDto)
+    {
+        Video? video = await _db.videos.FirstOrDefaultAsync(x => x.Id == id);
+        if (video == null) return Result.Fail("Video Not Found");
+        _mapper.Map(updateVideoDto, video);
+        _db.videos.Update(video);
+        await _db.SaveChangesAsync();
+        return Result.Ok();
+    }
 }
