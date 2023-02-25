@@ -49,9 +49,9 @@ public class VideoController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteVideo(int id)
+    public async Task<IActionResult> DeleteVideoAsync(int id)
     {
-        Result result = await _videoService.DeleteVideo(id);
+        Result result = await _videoService.DeleteVideoAsync(id);
         if (result.IsFailed) return NotFound();
         return NoContent();
     }

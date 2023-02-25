@@ -18,7 +18,7 @@ public class VideoService : IVideoService
         _mapper = mapper;
     }
 
-    public async Task<Result> DeleteVideo(int id)
+    public async Task<Result> DeleteVideoAsync(int id)
     {
         Video? video = await _db.videos.FirstOrDefaultAsync(x => x.Id == id);
         if (video == null) return Result.Fail("Not Found");
