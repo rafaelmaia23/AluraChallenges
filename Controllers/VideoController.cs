@@ -34,9 +34,11 @@ public class VideoController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> PostVideo(CreateVideoDto  createVideoDto)
+    public async Task<IActionResult> PostVideoAsync(CreateVideoDto  createVideoDto)
     {
-        Result<ReadVideoDto> result = await _videoService.PostVideo(createVideoDto);
+        Result<ReadVideoDto> result = await _videoService.PostVideoAsync(createVideoDto);
         return CreatedAtAction(nameof(GetVideoByIdAsync), new { id = result.Value.Id }, result.Value);
     }
+
+
 }

@@ -34,7 +34,7 @@ public class VideoService : IVideoService
         return Result.Ok(readVideoDtos);
     }
 
-    public async Task<Result<ReadVideoDto>> PostVideo(CreateVideoDto createVideoDto)
+    public async Task<Result<ReadVideoDto>> PostVideoAsync(CreateVideoDto createVideoDto)
     {
         Video video = _mapper.Map<Video>(createVideoDto);
         await _db.videos.AddAsync(video);
