@@ -10,5 +10,6 @@ public class VideoProfile : Profile
 	{
 		CreateMap<CreateVideoDto, Video>();
 		CreateMap<Video, ReadVideoDto>();
+		CreateMap<UpdateVideoDto, Video>();
 	}
 }
