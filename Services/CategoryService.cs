@@ -1,6 +1,25 @@
-﻿namespace AluraChallenges.Services
+﻿using AluraChallenges.Data;
+using AluraChallenges.Models;
+using AluraChallenges.Models.CategoryDto;
+using AluraChallenges.Services.IService;
+using AutoMapper;
+using FluentResults;
+using Microsoft.EntityFrameworkCore;
+
+namespace AluraChallenges.Services;
+
+public class CategoryService : ICategoryService
 {
-    public class CategoryService
+    private readonly AppDbContext _db;
+    private readonly IMapper _mapper;
+    public CategoryService(AppDbContext db, IMapper mapper)
     {
+        _db = db;
+        _mapper = mapper;
+    }
+
+    public async Result<List<ReadCategoryDto>> GetCategoriesAsync(int skip, int take)
+    {
+        List<Category> categories = await _db.categories.ToListAsync();
     }
 }

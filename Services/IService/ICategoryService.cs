@@ -1,6 +1,9 @@
-﻿namespace AluraChallenges.Services.IService
+﻿using AluraChallenges.Models.CategoryDto;
+using FluentResults;
+
+namespace AluraChallenges.Services.IService;
+
+public interface ICategoryService
 {
-    public class ICategoryService
-    {
-    }
+    //Result<List<ReadCategoryDto>> GetCategoriesAsync(int skip, int take);
 }
