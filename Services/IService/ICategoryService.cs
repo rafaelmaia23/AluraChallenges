@@ -5,5 +5,5 @@ namespace AluraChallenges.Services.IService;
 
 public interface ICategoryService
 {
-    //Result<List<ReadCategoryDto>> GetCategoriesAsync(int skip, int take);
+    Task<Result<List<ReadCategoryDto>>> GetCategoriesAsync(int skip, int take);
 }

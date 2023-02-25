@@ -18,8 +18,11 @@ public class CategoryService : ICategoryService
         _mapper = mapper;
     }
 
-    public async Result<List<ReadCategoryDto>> GetCategoriesAsync(int skip, int take)
+    public async Task<Result<List<ReadCategoryDto>>> GetCategoriesAsync(int skip, int take)
     {
         List<Category> categories = await _db.categories.ToListAsync();
+        if (categories == null) return Result.Fail("Not Found");
+        List<ReadCategoryDto> readCategoryDtos = _mapper.Map<List<ReadCategoryDto>>(categories);
+        return Result.Ok(readCategoryDtos);
     }
 }
