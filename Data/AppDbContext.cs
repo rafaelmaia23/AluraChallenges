@@ -11,4 +11,5 @@ public class AppDbContext : DbContext
 	}
 
 	public DbSet<Video> videos { get; set; }
+	public DbSet<Category> categories { get; set; }
 }
