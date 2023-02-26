@@ -4,6 +4,7 @@ using AluraChallenges.Models.CategoryDto;
 using AluraChallenges.Services.IService;
 using AutoMapper;
 using FluentResults;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace AluraChallenges.Services;
@@ -30,6 +31,15 @@ public class CategoryService : ICategoryService
     {
         Category? category = await _db.categories.FirstOrDefaultAsync(x => x.Id == id);
         if (category == null) return Result.Fail("Not Found");
+        ReadCategoryDto readCategoryDto = _mapper.Map<ReadCategoryDto>(category);
+        return Result.Ok(readCategoryDto);
+    }
+
+    public async Task<Result<ReadCategoryDto>> PostCategoryAsync(CreateCategoryDto createCategoryDto)
+    {
+        Category category = _mapper.Map<Category>(createCategoryDto);
+        await _db.categories.AddAsync(category);
+        await _db.SaveChangesAsync();
         ReadCategoryDto readCategoryDto = _mapper.Map<ReadCategoryDto>(category);
         return Result.Ok(readCategoryDto);
     }
