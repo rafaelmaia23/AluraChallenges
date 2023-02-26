@@ -25,4 +25,12 @@ public class CategoryService : ICategoryService
         List<ReadCategoryDto> readCategoryDtos = _mapper.Map<List<ReadCategoryDto>>(categories);
         return Result.Ok(readCategoryDtos);
     }
+
+    public async Task<Result<ReadCategoryDto>> GetCategoryByIdAsync(int id)
+    {
+        Category? category = await _db.categories.FirstOrDefaultAsync(x => x.Id == id);
+        if (category == null) return Result.Fail("Not Found");
+        ReadCategoryDto readCategoryDto = _mapper.Map<ReadCategoryDto>(category);
+        return Result.Ok(readCategoryDto);
+    }
 }
