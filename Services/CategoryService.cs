@@ -21,7 +21,7 @@ public class CategoryService : ICategoryService
 
     public async Task<Result<List<ReadCategoryDto>>> GetCategoriesAsync(int skip, int take)
     {
-        List<Category> categories = await _db.categories.ToListAsync();
+        List<Category> categories = await _db.categories.Skip(skip).Take(take).ToListAsync();
         if (categories == null) return Result.Fail("Not Found");
         List<ReadCategoryDto> readCategoryDtos = _mapper.Map<List<ReadCategoryDto>>(categories);
         return Result.Ok(readCategoryDtos);
