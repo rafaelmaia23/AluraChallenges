@@ -35,10 +35,20 @@ public class VideoService : IVideoService
         return Result.Ok(readVideoDto);
     }
 
-    public async Task<Result<List<ReadVideoDto>>> GetVideosAsync(int skip, int take)
+    public async Task<Result<List<ReadVideoDto>>> GetVideosAsync(int skip, int take, string search)
     {
-        List<Video>? videos = await _db.videos.Skip(skip).Take(take).Include(x => x.Category).ToListAsync();
-        if (videos == null) return Result.Fail("Not Found: List of Videos is empty");
+        List<Video>? videos = new List<Video>();
+        if (!String.IsNullOrEmpty(search))
+        {
+            videos = await _db.videos.Where(s => s.Title!.Contains(search))
+                .Skip(skip).Take(take).ToListAsync();
+        }
+        else
+        {
+            videos = await _db.videos.Skip(skip).Take(take).Include(x => x.Category).ToListAsync();
+        }
+
+        if (videos == null || videos.Count == 0) return Result.Fail("Not Found");
         List<ReadVideoDto> readVideoDtos = _mapper.Map<List<ReadVideoDto>>(videos);
         return Result.Ok(readVideoDtos);
     }
