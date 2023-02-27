@@ -37,6 +37,7 @@ public class VideoController : ControllerBase
     public async Task<IActionResult> PostVideoAsync([FromBody] CreateVideoDto  createVideoDto)
     {
         Result<ReadVideoDto> result = await _videoService.PostVideoAsync(createVideoDto);
+        if(result.IsFailed) return BadRequest(result.Reasons);
         return CreatedAtAction(nameof(GetVideoByIdAsync), new { id = result.Value.Id }, result.Value);
     }
 

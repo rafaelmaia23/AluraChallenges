@@ -55,7 +55,9 @@ public class VideoService : IVideoService
 
     public async Task<Result<ReadVideoDto>> PostVideoAsync(CreateVideoDto createVideoDto)
     {
-        Video video = _mapper.Map<Video>(createVideoDto);
+        if (createVideoDto.CategoryId == 0) createVideoDto.CategoryId = 1;
+        if (!_db.categories.Any(x => x.Id == createVideoDto.CategoryId)) return Result.Fail("Bad Request: Category do not exist");
+        Video video = _mapper.Map<Video>(createVideoDto);        
         await _db.videos.AddAsync(video);
         await _db.SaveChangesAsync();
         ReadVideoDto readVideoDto = _mapper.Map<ReadVideoDto>(video);
