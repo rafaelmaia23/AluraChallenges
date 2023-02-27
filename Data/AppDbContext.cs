@@ -10,6 +10,14 @@ public class AppDbContext : DbContext
 
 	}
 
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
+	{
+		modelBuilder.Entity<Video>()
+			.HasOne(video => video.Category)
+			.WithMany(category => category.Videos)
+			.HasForeignKey(video => video.CategoryId);
+	}
+
 	public DbSet<Video> videos { get; set; }
 	public DbSet<Category> categories { get; set; }
 }
