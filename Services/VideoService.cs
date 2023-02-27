@@ -29,7 +29,7 @@ public class VideoService : IVideoService
 
     public async Task<Result<ReadVideoDto>> GetVideoByIdAsync(int id)
     {
-        Video? video = await _db.videos.FirstOrDefaultAsync(x => x.Id == id);
+        Video? video = await _db.videos.Include(x => x.Category).FirstOrDefaultAsync(x => x.Id == id);
         if (video == null) return Result.Fail("Not Found");
         ReadVideoDto readVideoDto = _mapper.Map<ReadVideoDto>(video);
         return Result.Ok(readVideoDto);
@@ -37,7 +37,7 @@ public class VideoService : IVideoService
 
     public async Task<Result<List<ReadVideoDto>>> GetVideosAsync(int skip, int take)
     {
-        List<Video>? videos = await _db.videos.Skip(skip).Take(take).ToListAsync();
+        List<Video>? videos = await _db.videos.Skip(skip).Take(take).Include(x => x.Category).ToListAsync();
         if (videos == null) return Result.Fail("Not Found: List of Videos is empty");
         List<ReadVideoDto> readVideoDtos = _mapper.Map<List<ReadVideoDto>>(videos);
         return Result.Ok(readVideoDtos);
