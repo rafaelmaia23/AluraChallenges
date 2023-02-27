@@ -19,6 +19,15 @@ public class CategoryService : ICategoryService
         _mapper = mapper;
     }
 
+    public async Task<Result> DeleteCategoryAsync(int id)
+    {
+        Category? category = await _db.categories.FirstOrDefaultAsync(x => x.Id == id);
+        if (category == null) return Result.Fail("Not found");
+        _db.categories.Remove(category);
+        await _db.SaveChangesAsync();
+        return Result.Ok();
+    }
+
     public async Task<Result<List<ReadCategoryDto>>> GetCategoriesAsync(int skip, int take)
     {
         List<Category> categories = await _db.categories.Skip(skip).Take(take).ToListAsync();

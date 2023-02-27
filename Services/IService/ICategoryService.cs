@@ -6,6 +6,7 @@ namespace AluraChallenges.Services.IService;
 
 public interface ICategoryService
 {
+    Task<Result> DeleteCategoryAsync(int id);
     Task<Result<List<ReadCategoryDto>>> GetCategoriesAsync(int skip, int take);
     Task<Result<ReadCategoryDto>> GetCategoryByIdAsync(int id);
     Task<Result<ReadCategoryDto>> PostCategoryAsync(CreateCategoryDto createCategoryDto);
