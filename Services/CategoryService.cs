@@ -43,4 +43,14 @@ public class CategoryService : ICategoryService
         ReadCategoryDto readCategoryDto = _mapper.Map<ReadCategoryDto>(category);
         return Result.Ok(readCategoryDto);
     }
+
+    public async Task<Result> PutCategoryAsync(int id, UpdateCategoryDto updateCategoryDto)
+    {
+        Category? category = await _db.categories.FirstOrDefaultAsync(x => x.Id == id);
+        if (category == null) return Result.Fail("Not Found");
+        _mapper.Map(updateCategoryDto, category);
+        _db.categories.Update(category);
+        await _db.SaveChangesAsync();
+        return Result.Ok();
+    }
 }

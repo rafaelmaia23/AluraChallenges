@@ -41,4 +41,11 @@ public class CategoryController  : ControllerBase
         return CreatedAtAction(nameof(GetCategoryByIdAsync), new {id = result.Value.Id}, result.Value);
     }
 
+    [HttpPut("{id}")]
+    public async Task<IActionResult> PutCategoryAsync(int id, [FromBody] UpdateCategoryDto updateCategoryDto)
+    {
+        Result result = await _categoryService.PutCategoryAsync(id, updateCategoryDto);
+        if(result.IsFailed) return NotFound();
+        return NoContent();
+    }
 }
