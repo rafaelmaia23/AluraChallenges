@@ -1,5 +1,6 @@
 ﻿using AluraChallenges.Models;
 using AluraChallenges.Models.CategoryDto;
+using AluraChallenges.Models.VideoDto;
 using AluraChallenges.Services.IService;
 using FluentResults;
 using Microsoft.AspNetCore.Mvc;
@@ -55,5 +56,13 @@ public class CategoryController  : ControllerBase
         Result result = await _categoryService.DeleteCategoryAsync(id);
         if(result.IsFailed) return NotFound();
         return NoContent();
+    }
+
+    [HttpGet("{id}/Videos")]
+    public async Task<IActionResult> GetVideosByCategory(int id)
+    {
+        Result<List<ReadVideoDto>> result = await _categoryService.GetVideosByCategory(id);
+        if(result.IsFailed) return NotFound();
+        return Ok(result.Value);
     }
 }
