@@ -40,6 +40,14 @@ namespace AluraChallenges.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Color = "branco",
+                            Title = "Livre"
+                        });
                 });
 
             modelBuilder.Entity("AluraChallenges.Models.Video", b =>
