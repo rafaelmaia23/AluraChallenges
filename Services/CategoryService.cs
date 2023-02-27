@@ -32,7 +32,7 @@ public class CategoryService : ICategoryService
     public async Task<Result<List<ReadCategoryDto>>> GetCategoriesAsync(int skip, int take)
     {
         List<Category> categories = await _db.categories.Skip(skip).Take(take).ToListAsync();
-        if (categories == null) return Result.Fail("Not Found");
+        if (categories == null || categories.Count == 0) return Result.Fail("Not Found");
         List<ReadCategoryDto> readCategoryDtos = _mapper.Map<List<ReadCategoryDto>>(categories);
         return Result.Ok(readCategoryDtos);
     }
@@ -48,7 +48,7 @@ public class CategoryService : ICategoryService
     public async Task<Result<List<ReadVideoDto>>> GetVideosByCategory(int id)
     {
         Category? category = await _db.categories.Include(x => x.Videos).FirstOrDefaultAsync(x => x.Id == id);
-        if (category == null) return Result.Fail("Not Found");
+        if (category == null || category.Videos.Count == 0 || category.Videos == null) return Result.Fail("Not Found");
         List<ReadVideoDto> readVideoDtos = _mapper.Map<List<ReadVideoDto>>(category.Videos);
         return Result.Ok(readVideoDtos);
     }
