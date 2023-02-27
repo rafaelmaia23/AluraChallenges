@@ -34,14 +34,14 @@ public class VideoController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> PostVideoAsync(CreateVideoDto  createVideoDto)
+    public async Task<IActionResult> PostVideoAsync([FromBody] CreateVideoDto  createVideoDto)
     {
         Result<ReadVideoDto> result = await _videoService.PostVideoAsync(createVideoDto);
         return CreatedAtAction(nameof(GetVideoByIdAsync), new { id = result.Value.Id }, result.Value);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutVideoAsync(int id, UpdateVideoDto updateVideoDto)
+    public async Task<IActionResult> PutVideoAsync(int id, [FromBody] UpdateVideoDto updateVideoDto)
     {
         Result result = await _videoService.PutVideoAsync(id, updateVideoDto);
         if(result.IsFailed) return NotFound();

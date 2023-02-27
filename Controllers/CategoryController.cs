@@ -35,11 +35,10 @@ public class CategoryController  : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> PostCategoryAsync(CreateCategoryDto createCategoryDto)
+    public async Task<IActionResult> PostCategoryAsync([FromBody] CreateCategoryDto createCategoryDto)
     {
         Result<ReadCategoryDto> result = await _categoryService.PostCategoryAsync(createCategoryDto);
         return CreatedAtAction(nameof(GetCategoryByIdAsync), new {id = result.Value.Id}, result.Value);
     }
-
 
 }
