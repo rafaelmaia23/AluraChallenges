@@ -16,6 +16,14 @@ public class AppDbContext : DbContext
 			.HasOne(video => video.Category)
 			.WithMany(category => category.Videos)
 			.HasForeignKey(video => video.CategoryId);
+
+		Category category = new Category
+		{
+			Id = 1,
+			Title = "Livre",
+			Color = "branco"
+		};
+		modelBuilder.Entity<Category>().HasData(category);
 	}
 
 	public DbSet<Video> videos { get; set; }
