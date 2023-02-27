@@ -11,4 +11,5 @@ public class Category
     public string Title { get; set; }
     [Required]
     public string Color { get; set; }
+    public List<Video> Videos { get; set; }
 }

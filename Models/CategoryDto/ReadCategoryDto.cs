@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AluraChallenges.Models.VideoDto;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace AluraChallenges.Models.CategoryDto;
 
