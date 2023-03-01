@@ -17,7 +17,7 @@ public class VideoController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetVideosAsync([FromQuery] int skip = 0, [FromQuery] int take = 20, [FromQuery] string search = null) 
+    public async Task<IActionResult> GetVideosAsync([FromQuery] int skip = 0, [FromQuery] int take = 5, [FromQuery] string search = null) 
     {
         Result<List<ReadVideoDto>> result = await _videoService.GetVideosAsync(skip, take, search);
         if(result.IsFailed) return NotFound();

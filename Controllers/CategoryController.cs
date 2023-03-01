@@ -19,7 +19,7 @@ public class CategoryController  : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetCategoriesAsync([FromQuery] int skip = 0, [FromQuery] int take = 20)
+    public async Task<IActionResult> GetCategoriesAsync([FromQuery] int skip = 0, [FromQuery] int take = 5)
     {
         Result<List<ReadCategoryDto>> result = await _categoryService.GetCategoriesAsync(skip, take);
         if (result.IsFailed) return NotFound();
