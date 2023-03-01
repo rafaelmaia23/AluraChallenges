@@ -13,6 +13,7 @@ public class AppDbContext : IdentityDbContext<User>
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
+		base.OnModelCreating(modelBuilder);
 		modelBuilder.Entity<Video>()
 			.HasOne(video => video.Category)
 			.WithMany(category => category.Videos)
