@@ -1,4 +1,5 @@
 ﻿using AluraChallenges.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,7 +27,48 @@ public class AppDbContext : IdentityDbContext<User>
 			Color = "branco"
 		};
 		modelBuilder.Entity<Category>().HasData(category);
-	}
+
+		modelBuilder.Entity<IdentityRole>().HasData(
+			new IdentityRole
+			{
+				Id = "adminrole",
+				Name = "admin",
+				NormalizedName = "ADMIN"
+			}
+		);
+		modelBuilder.Entity<IdentityRole>().HasData(
+			new IdentityRole
+			{
+				Id = "clientrole",
+				Name = "client",
+				NormalizedName = "CLIENT"
+			}
+		);
+
+		User admin = new User
+		{
+			Name = "admin",
+			Surname = "admin",
+			UserName = "admin",
+			NormalizedUserName = "ADMIN",
+			Email = "admin@admin.com",
+			NormalizedEmail = "ADMIN@ADMIN.COM",
+			EmailConfirmed = true,
+			SecurityStamp = Guid.NewGuid().ToString(),
+			Id = "admin"
+		};
+		PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
+		admin.PasswordHash = passwordHasher.HashPassword(admin, "password");
+		modelBuilder.Entity<User>().HasData(admin);
+
+        modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+			new IdentityUserRole<string>
+			{
+				RoleId = "adminrole",
+				UserId = "admin"
+			}
+		);
+    }
 
 	public DbSet<Video> videos { get; set; }
 	public DbSet<Category> categories { get; set; }
