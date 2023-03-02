@@ -1,4 +1,6 @@
-﻿using AluraChallenges.Services.IService;
+﻿using AluraChallenges.Models.UserDto;
+using AluraChallenges.Services.IService;
+using FluentResults;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,4 +16,15 @@ public class UserController : ControllerBase
 	{
 		_userService = userService;
 	}
+
+	[HttpPost("/register")]
+	public async Task<IActionResult> RegisterUserAsync(CreateUserDto createUserDto)
+	{
+		Result result = await _userService.RegisterUserAsync(createUserDto);
+		if (result.IsFailed) return StatusCode(500);
+		return Ok();
+    }
+
+
+
 }
