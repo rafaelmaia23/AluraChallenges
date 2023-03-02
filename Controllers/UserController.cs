@@ -25,6 +25,14 @@ public class UserController : ControllerBase
 		return Ok();
     }
 
+	[HttpPost("/login")]
+	public async Task<IActionResult> LoginUserAsync(UserLogin userLogin)
+	{
+		Result result = await _userService.LoginUserAsync(userLogin);
+		if(result.IsFailed) return Unauthorized(result.Reasons);
+		return Ok(result.Successes.FirstOrDefault());
+    }
+
 
 
 }
