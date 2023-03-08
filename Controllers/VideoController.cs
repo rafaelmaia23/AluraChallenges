@@ -1,6 +1,7 @@
 ﻿using AluraChallenges.Models.VideoDto;
 using AluraChallenges.Services.IService;
 using FluentResults;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AluraChallenges.Controllers;
@@ -17,6 +18,7 @@ public class VideoController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "admin, client")]
     public async Task<IActionResult> GetVideosAsync([FromQuery] int skip = 0, [FromQuery] int take = 5, [FromQuery] string search = null) 
     {
         Result<List<ReadVideoDto>> result = await _videoService.GetVideosAsync(skip, take, search);
@@ -26,6 +28,7 @@ public class VideoController : ControllerBase
 
     [HttpGet("{id}")]
     [ActionName("GetVideoByIdAsync")]
+    [Authorize(Roles = "admin, client")]
     public async Task<IActionResult> GetVideoByIdAsync(int id)
     {
         Result<ReadVideoDto> result = await _videoService.GetVideoByIdAsync(id);
@@ -34,6 +37,7 @@ public class VideoController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "admin")]
     public async Task<IActionResult> PostVideoAsync([FromBody] CreateVideoDto  createVideoDto)
     {
         Result<ReadVideoDto> result = await _videoService.PostVideoAsync(createVideoDto);
@@ -42,6 +46,7 @@ public class VideoController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = "admin")]
     public async Task<IActionResult> PutVideoAsync(int id, [FromBody] UpdateVideoDto updateVideoDto)
     {
         Result result = await _videoService.PutVideoAsync(id, updateVideoDto);
@@ -50,6 +55,7 @@ public class VideoController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "admin")]
     public async Task<IActionResult> DeleteVideoAsync(int id)
     {
         Result result = await _videoService.DeleteVideoAsync(id);

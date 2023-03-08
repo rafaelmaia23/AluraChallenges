@@ -3,6 +3,7 @@ using AluraChallenges.Models.CategoryDto;
 using AluraChallenges.Models.VideoDto;
 using AluraChallenges.Services.IService;
 using FluentResults;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AluraChallenges.Controllers;
@@ -19,6 +20,7 @@ public class CategoryController  : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "admin, client")]
     public async Task<IActionResult> GetCategoriesAsync([FromQuery] int skip = 0, [FromQuery] int take = 5)
     {
         Result<List<ReadCategoryDto>> result = await _categoryService.GetCategoriesAsync(skip, take);
@@ -26,8 +28,10 @@ public class CategoryController  : ControllerBase
         return Ok(result.Value);
     }
 
+    
     [HttpGet("{id}")]
     [ActionName("GetCategoryByIdAsync")]
+    [Authorize(Roles = "admin, client")]
     public async Task<IActionResult> GetCategoryByIdAsync(int id)
     {
         Result<ReadCategoryDto> result = await _categoryService.GetCategoryByIdAsync(id);
@@ -35,7 +39,9 @@ public class CategoryController  : ControllerBase
         return Ok(result.Value);
     }
 
+    
     [HttpPost]
+    [Authorize(Roles = "admin")]
     public async Task<IActionResult> PostCategoryAsync([FromBody] CreateCategoryDto createCategoryDto)
     {
         Result<ReadCategoryDto> result = await _categoryService.PostCategoryAsync(createCategoryDto);
@@ -43,6 +49,7 @@ public class CategoryController  : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = "admin")]
     public async Task<IActionResult> PutCategoryAsync(int id, [FromBody] UpdateCategoryDto updateCategoryDto)
     {
         Result result = await _categoryService.PutCategoryAsync(id, updateCategoryDto);
@@ -51,6 +58,7 @@ public class CategoryController  : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "admin")]
     public async Task<IActionResult> DeleteCategoryAsync(int id)
     {
         Result result = await _categoryService.DeleteCategoryAsync(id);
@@ -59,6 +67,7 @@ public class CategoryController  : ControllerBase
     }
 
     [HttpGet("{id}/Videos")]
+    [Authorize(Roles = "admin, client")]
     public async Task<IActionResult> GetVideosByCategory(int id)
     {
         Result<List<ReadVideoDto>> result = await _categoryService.GetVideosByCategory(id);

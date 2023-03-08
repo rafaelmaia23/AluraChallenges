@@ -1,7 +1,6 @@
 ﻿using AluraChallenges.Models.UserDto;
 using AluraChallenges.Services.IService;
 using FluentResults;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AluraChallenges.Controllers;
