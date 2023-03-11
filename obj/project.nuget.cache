@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "HP6fafMPCa+VihDvkIYqEHs3q/7ZWKtYaPgwXbdLXipxtXFl157mp8u+e3GCWy5yvEU+wxHmIs03zqUPpIY2+A==",
+  "dgSpecHash": "X+xEhuOHOsjJaeiUHbnvH6LC5y5vKJNpxH+mWFTr8UnjWk0ifdJiHQu9oc0Y35ju16MQCnkSZaMQb5vXM8u71w==",
   "success": true,
-  "projectFilePath": "D:\\OneDrive\\Estudo\\Alura\\Alura Challenge\\Backend\\AluraChallenges\\AluraChallenges\\AluraChallenges.csproj",
+  "projectFilePath": "D:\\OneDrive\\Estudo\\Alura\\AluraChallenge\\Backend\\AluraChallenges\\AluraChallenges\\AluraChallenges.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\rafa_\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\rafa_\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

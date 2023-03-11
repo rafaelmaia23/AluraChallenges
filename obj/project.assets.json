@@ -3926,11 +3926,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\OneDrive\\Estudo\\Alura\\Alura Challenge\\Backend\\AluraChallenges\\AluraChallenges\\AluraChallenges.csproj",
+      "projectUniqueName": "D:\\OneDrive\\Estudo\\Alura\\AluraChallenge\\Backend\\AluraChallenges\\AluraChallenges\\AluraChallenges.csproj",
       "projectName": "AluraChallenges",
-      "projectPath": "D:\\OneDrive\\Estudo\\Alura\\Alura Challenge\\Backend\\AluraChallenges\\AluraChallenges\\AluraChallenges.csproj",
+      "projectPath": "D:\\OneDrive\\Estudo\\Alura\\AluraChallenge\\Backend\\AluraChallenges\\AluraChallenges\\AluraChallenges.csproj",
       "packagesPath": "C:\\Users\\rafa_\\.nuget\\packages\\",
-      "outputPath": "D:\\OneDrive\\Estudo\\Alura\\Alura Challenge\\Backend\\AluraChallenges\\AluraChallenges\\obj\\",
+      "outputPath": "D:\\OneDrive\\Estudo\\Alura\\AluraChallenge\\Backend\\AluraChallenges\\AluraChallenges\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Apps\\Microsoft Visual Studio\\Shared\\NuGetPackages"
