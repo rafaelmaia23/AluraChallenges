@@ -33,7 +33,7 @@ public class UserService : IUserService
             LoginToken loginToken = _tokenService.GenerateLoginToken(user, roles);
             return Result.Ok().WithSuccess(loginToken.Value);                
         }
-        return Result.Fail("Login Fail");
+        return Result.Fail("Username or password invalid");
     }
 
     public async Task<Result> RegisterUserAsync(CreateUserDto createUserDto)
