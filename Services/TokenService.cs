@@ -9,22 +9,31 @@ namespace AluraChallenges.Services;
 
 public class TokenService : ITokenService
 {
-    public LoginToken GenerateLoginToken(User user, string? roles)
+    private readonly IConfiguration _configuration;
+
+    public TokenService(IConfiguration configuration)
     {
+        _configuration = configuration;
+    }
+
+    public LoginToken GenerateLoginToken(User user, string? roles)
+    {        
         Claim[] userClaims = new Claim[]
         {
             new Claim("username", user.UserName),
             new Claim(ClaimTypes.NameIdentifier, user.Id),
-            new Claim(ClaimTypes.Role, roles)
+            new Claim(ClaimTypes.Role, roles),
+            new Claim(JwtRegisteredClaimNames.Aud, _configuration["Jwt:Audience"]),
+            new Claim(JwtRegisteredClaimNames.Iss, _configuration["Jwt:Issuer"]),
         };
 
-        SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-            "ch4v3Al3a70R!aQ&d3v&s&rsecr#ta")
-        );
+        SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
         
         SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         JwtSecurityToken token = new JwtSecurityToken(
+            issuer: _configuration["Jwt:Issuer"],
+            audience: _configuration["Jwt:Audience"],
             claims: userClaims,
             signingCredentials: credentials,
             expires: DateTime.UtcNow.AddHours(1)
