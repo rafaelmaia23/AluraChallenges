@@ -27,6 +27,14 @@ public class VideoService : IVideoService
         return Result.Ok();
     }
 
+    public async Task<Result<List<ReadVideoDto>>> GetFreeVideosAsync()
+    {
+        List<Video> videos = await _db.videos.Take(3).Include(x => x.Category).ToListAsync();
+        if (videos.Count == 0 || videos == null) return Result.Fail("Not Found");
+        List<ReadVideoDto> readVideoDtos = _mapper.Map<List<ReadVideoDto>>(videos);
+        return Result.Ok(readVideoDtos);
+    }
+
     public async Task<Result<ReadVideoDto>> GetVideoByIdAsync(int id)
     {
         Video? video = await _db.videos.Include(x => x.Category).FirstOrDefaultAsync(x => x.Id == id);

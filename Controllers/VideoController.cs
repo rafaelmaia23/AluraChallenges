@@ -36,6 +36,14 @@ public class VideoController : ControllerBase
         return Ok(result.Value);
     }
 
+    [HttpGet("Free")]
+    public async Task<IActionResult> GetFreeVideosAsync()
+    {
+        Result<List<ReadVideoDto>> result = await _videoService.GetFreeVideosAsync();
+        if(result.IsFailed) return NotFound();
+        return Ok(result.Value);
+    }
+
     [HttpPost]
     [Authorize(Roles = "admin")]
     public async Task<IActionResult> PostVideoAsync([FromBody] CreateVideoDto  createVideoDto)
